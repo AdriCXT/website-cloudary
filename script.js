@@ -5,7 +5,7 @@
  */
 
 const CONFIG = {
-  PASSWORD: "ChangeMe123!", // 🔐 Passwort anpassen
+  PASSWORD: "Uyeg0422!", // 🔐 Passwort anpassen
   STORAGE_KEY: "cloudary-auth",
   LOGIN_DELAY: 500
 };
