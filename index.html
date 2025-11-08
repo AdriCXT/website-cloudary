@@ -1,161 +1,67 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>CLOUDARY – Secure Portal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLOUDARY Portal</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="bg-gradient"></div>
+  <div class="background"></div>
 
-  <div class="wrapper">
-
-    <!-- Login-Screen -->
-    <section id="login-screen" class="center-screen">
-      <div class="card card-login">
-        <div class="logo">
-          <div class="logo-mark">C</div>
-          <div class="logo-text">
-            <span class="logo-name">CLOUDARY</span>
-            <span class="logo-tagline">Secure Access Portal</span>
-          </div>
-        </div>
-
-        <h1>Willkommen bei CLOUDARY</h1>
-        <p class="subtitle">
-          Dieses Portal führt dich zu deiner Cloud, deinem Dashboard und weiteren internen Diensten.
-        </p>
-
-        <form id="login-form" autocomplete="off">
-          <label for="password-input">Passwort</label>
-          <input
-            type="password"
-            id="password-input"
-            name="password"
-            placeholder="••••••••"
-            required
-          />
-          <button type="submit" class="btn-primary">Login</button>
-          <p id="login-message" class="message error hidden">Falsches Passwort.</p>
-        </form>
-
-        <p class="support-info">
-          Probleme beim Login? <a href="mailto:webmaster@cloudary.de">webmaster@cloudary.de</a>
-        </p>
+  <!-- Login Bereich -->
+  <section id="login-section" class="center">
+    <div class="login-card">
+      <div class="logo">
+        <div class="logo-icon">☁️</div>
+        <h1>CLOUDARY</h1>
+        <p class="tagline">Secure Access Portal</p>
       </div>
-    </section>
 
-    <!-- Hauptinhalt nach Login -->
-    <div id="main-content" class="hidden">
-      <header class="top-bar">
-        <div class="logo">
-          <div class="logo-mark">C</div>
-          <div class="logo-text">
-            <span class="logo-name">CLOUDARY</span>
-            <span class="logo-tagline">Cloud &amp; Dashboard Access</span>
-          </div>
-        </div>
-        <div class="top-bar-right">
-          <span class="user-label">Angemeldet</span>
-          <button id="logout-btn" class="btn-ghost">Logout</button>
-        </div>
-      </header>
+      <form id="login-form" autocomplete="off">
+        <label for="password">Passwort</label>
+        <input type="password" id="password" placeholder="••••••••" required />
+        <button type="submit">Login</button>
+        <p id="login-message" class="message hidden"></p>
+      </form>
 
-      <main class="content">
-        <section class="intro">
-          <h1>Willkommen im CLOUDARY Portal</h1>
-          <p>
-            Wähle einen Dienst aus, um zu deiner Cloud, deinem Dashboard oder weiteren
-            Systemen zu wechseln. Alle Links öffnen sich in einem neuen Tab.
-          </p>
-        </section>
-
-        <section class="tiles-grid">
-          <!-- Nextcloud -->
-          <a
-            class="tile"
-            href="https://cloud.cloudary.de"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div class="tile-icon">
-              <span class="icon-circle">☁️</span>
-            </div>
-            <div class="tile-body">
-              <h2>Cloud</h2>
-              <p>
-                Zugriff auf deine Nextcloud: Dateien, Freigaben, Kalender &amp; mehr.
-              </p>
-              <span class="tile-link">cloud.cloudary.de</span>
-            </div>
-          </a>
-
-          <!-- Dashboard -->
-          <a
-            class="tile"
-            href="https://dash.cloudary.de"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div class="tile-icon">
-              <span class="icon-circle">📊</span>
-            </div>
-            <div class="tile-body">
-              <h2>Dashboard</h2>
-              <p>
-                Übersichten, Statistiken und Steuerung deiner CLOUDARY-Dienste.
-              </p>
-              <span class="tile-link">dash.cloudary.de</span>
-            </div>
-          </a>
-
-          <!-- Platzhalter für weitere Dienste -->
-          <a
-            class="tile"
-            href="#"
-            onclick="alert('Dieser Dienst ist noch nicht konfiguriert.'); return false;"
-          >
-            <div class="tile-icon">
-              <span class="icon-circle">🧩</span>
-            </div>
-            <div class="tile-body">
-              <h2>Weitere Dienste</h2>
-              <p>
-                Reserviert für zukünftige Services (VPN, Monitoring, Support-Portal usw.).
-              </p>
-              <span class="tile-link">coming soon</span>
-            </div>
-          </a>
-
-          <!-- Support / Kontakt -->
-          <a
-            class="tile"
-            href="mailto:webmaster@cloudary.de"
-          >
-            <div class="tile-icon">
-              <span class="icon-circle">💬</span>
-            </div>
-            <div class="tile-body">
-              <h2>Support</h2>
-              <p>
-                Direktkontakt per E-Mail an den CLOUDARY Webmaster.
-              </p>
-              <span class="tile-link">webmaster@cloudary.de</span>
-            </div>
-          </a>
-        </section>
-      </main>
-
-      <footer class="footer">
-        <span>© <span id="year"></span> CLOUDARY by A&A· All rights reserved.</span>
-        <span>
-          Kontakt:
-          <a href="mailto:webmaster@cloudary.de">webmaster@cloudary.de</a>
-        </span>
-      </footer>
+      <p class="support">
+        Probleme beim Login? <a href="mailto:webmaster@cloudary.de">webmaster@cloudary.de</a>
+      </p>
     </div>
-  </div>
+  </section>
+
+  <!-- Hauptinhalt -->
+  <main id="main-content" class="hidden">
+    <header>
+      <h2>Willkommen im CLOUDARY Portal</h2>
+      <button id="logout-btn" class="logout">Logout</button>
+    </header>
+
+    <div class="tiles">
+      <a href="https://cloud.cloudary.de" target="_blank" class="tile">
+        <div class="icon">☁️</div>
+        <h3>Cloud</h3>
+        <p>Deine Nextcloud – Dateien, Kalender & mehr.</p>
+      </a>
+
+      <a href="https://dash.cloudary.de" target="_blank" class="tile">
+        <div class="icon">📊</div>
+        <h3>Dashboard</h3>
+        <p>Dein internes Dashboard und Systemübersicht.</p>
+      </a>
+
+      <a href="mailto:webmaster@cloudary.de" class="tile">
+        <div class="icon">💬</div>
+        <h3>Support</h3>
+        <p>Kontakt zu CLOUDARY Support.</p>
+      </a>
+    </div>
+
+    <footer>
+      <p>© <span id="year"></span> CLOUDARY · All rights reserved.</p>
+    </footer>
+  </main>
 
   <script src="script.js"></script>
 </body>

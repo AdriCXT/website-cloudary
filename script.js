@@ -1,64 +1,79 @@
-// <<< WICHTIG: HIER DEIN PASSWORT EINTRAGEN >>>
-const PORTAL_PASSWORD = "Uyeg0422!"; // <-- ändern!
+/**
+ * CLOUDARY Portal – Secure Access
+ * Version: 1.2.0
+ * Author: webmaster@cloudary.de
+ */
 
-const loginScreen = document.getElementById("login-screen");
-const mainContent = document.getElementById("main-content");
-const loginForm = document.getElementById("login-form");
-const passwordInput = document.getElementById("password-input");
-const loginMessage = document.getElementById("login-message");
-const logoutBtn = document.getElementById("logout-btn");
-const yearSpan = document.getElementById("year");
+const CONFIG = {
+  PASSWORD: "ChangeMe123!", // 🔐 Passwort anpassen
+  STORAGE_KEY: "cloudary-auth",
+  LOGIN_DELAY: 500
+};
 
-// aktuelles Jahr im Footer
-if (yearSpan) {
-  yearSpan.textContent = new Date().getFullYear();
-}
+const els = {
+  loginSection: document.getElementById("login-section"),
+  mainContent: document.getElementById("main-content"),
+  form: document.getElementById("login-form"),
+  password: document.getElementById("password"),
+  message: document.getElementById("login-message"),
+  logout: document.getElementById("logout-btn"),
+  year: document.getElementById("year")
+};
 
-// Prüfen, ob schon eingeloggt (LocalStorage)
-const isAuthenticated = localStorage.getItem("cloudary-auth") === "true";
+// Jahr anzeigen
+if (els.year) els.year.textContent = new Date().getFullYear();
 
-if (isAuthenticated) {
-  showMainContent();
+// Session prüfen
+if (localStorage.getItem(CONFIG.STORAGE_KEY) === "true") {
+  showMain();
 } else {
   showLogin();
 }
 
 function showLogin() {
-  loginScreen.classList.remove("hidden");
-  mainContent.classList.add("hidden");
+  els.loginSection.classList.remove("hidden");
+  els.mainContent.classList.add("hidden");
 }
 
-function showMainContent() {
-  loginScreen.classList.add("hidden");
-  mainContent.classList.remove("hidden");
+function showMain() {
+  els.loginSection.classList.add("hidden");
+  els.mainContent.classList.remove("hidden");
 }
 
-// Login-Formular
-if (loginForm) {
-  loginForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    const value = passwordInput.value.trim();
+els.form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const input = els.password.value.trim();
+  els.message.className = "message";
+  if (!input) {
+    showMessage("Bitte Passwort eingeben.", "error");
+    return;
+  }
 
-    if (value === PORTAL_PASSWORD) {
-      loginMessage.classList.add("hidden");
-      localStorage.setItem("cloudary-auth", "true");
-      passwordInput.value = "";
-      showMainContent();
+  showMessage("Überprüfe Zugangsdaten ...", "info");
+  els.password.disabled = true;
+
+  setTimeout(() => {
+    if (input === CONFIG.PASSWORD) {
+      showMessage("Erfolgreich angemeldet.", "success");
+      localStorage.setItem(CONFIG.STORAGE_KEY, "true");
+      setTimeout(showMain, 700);
     } else {
-      loginMessage.textContent = "Falsches Passwort.";
-      loginMessage.classList.remove("hidden");
-      loginForm.classList.remove("shake");
-      // reflow, damit Animation neu startet
-      void loginForm.offsetWidth;
-      loginForm.classList.add("shake");
+      showMessage("Falsches Passwort.", "error");
+      els.password.value = "";
     }
-  });
+    els.password.disabled = false;
+  }, CONFIG.LOGIN_DELAY);
+});
+
+els.logout.addEventListener("click", () => {
+  localStorage.removeItem(CONFIG.STORAGE_KEY);
+  showLogin();
+});
+
+function showMessage(text, type) {
+  els.message.textContent = text;
+  els.message.className = `message ${type}`;
+  els.message.classList.remove("hidden");
 }
 
-// Logout
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", function () {
-    localStorage.removeItem("cloudary-auth");
-    showLogin();
-  });
-}
+console.info("%c✅ CLOUDARY Portal loaded.", "color:#22c55e;font-weight:bold;");
