@@ -1,5 +1,5 @@
 // <<< WICHTIG: HIER DEIN PASSWORT EINTRAGEN >>>
-const PORTAL_PASSWORD = "ÄndereMich123!"; // <-- ändern!
+const PORTAL_PASSWORD = "Uyeg0422!"; // <-- ändern!
 
 const loginScreen = document.getElementById("login-screen");
 const mainContent = document.getElementById("main-content");
