@@ -7,7 +7,7 @@
 const CONFIG = {
   PASSWORD: "Uyeg0422!", // 🔐 Passwort anpassen
   STORAGE_KEY: "cloudary-auth",
-  LOGIN_DELAY: 500
+  LOGIN_DELAY: 450
 };
 
 const els = {
@@ -58,7 +58,7 @@ els.form.addEventListener("submit", (e) => {
       localStorage.setItem(CONFIG.STORAGE_KEY, "true");
       setTimeout(showMain, 700);
     } else {
-      showMessage("Falsches Passwort.", "error");
+      showMessage("Falsches Passwort. bei Problemen siehe Mail unten", "error");
       els.password.value = "";
     }
     els.password.disabled = false;
