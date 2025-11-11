@@ -20,7 +20,8 @@
 | **Projekte**        | Kanban-Boards, Aufgaben, Meilensteine             |
 | **Chat**            | Echtzeit-Teamkommunikation                        |
 
-> **Login**: Mit deinem Zugangspasswort
+> **Login**: Mit deinem Zugangspasswort         
+
 > **Support**: `webmaster@cloudary.de`
 
 ## Architektur (Nextcloud ↔ Server)
