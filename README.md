@@ -24,15 +24,6 @@
 > **Login**: Mit deiner Cloudary E-Mail + Passwort  
 > **Support**: `webmaster@cloudary.de`
 
----
-
-<div align="center">
-  <img src="https://github.com/AdrianUndArien/cloudary-intranet/raw/main/assets/intranet-preview.jpg" alt="Intranet Preview" width="700" />
-  <br><small>Schnell. Stabil. Intern.</small>
-</div>
-
----
-
 ## Architektur (Nextcloud ↔ Server)
 
 ```mermaid
