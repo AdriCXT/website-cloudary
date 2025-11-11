@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/Nextcloud-0082C9?style=for-the-badge&logo=nextcloud&logoColor=white" alt="Nextcloud" />
   <img src="https://img.shields.io/badge/Server_Dashboard-4CAF50?style=for-the-badge&logo=server&logoColor=white" alt="Server Dashboard" />
   <img src="https://img.shields.io/badge/Admins-Arien+%26+Adrian-FF5722?style=for-the-badge&logo=users&logoColor=white" alt="Admins" />
-  <img src="https://img.shields.io/badge/Status-Live-00C853?style=for-the-badge&logo=check-circle&logoColor=white" alt="Live" />
+  <img src="https://img.shields.io/github/last-commit/adricxt/website-cloudary?style=for-the-badge&color=0082C9&logo=git&logoColor=white" alt="Zuletzt bearbeitet" />
 </div>
 
 ---
@@ -19,9 +19,8 @@
 | **Server Dashboard**| Live-Überwachung: CPU, RAM, Festplatte, Logs, Alerts |
 | **Projekte**        | Kanban-Boards, Aufgaben, Meilensteine             |
 | **Chat**            | Echtzeit-Teamkommunikation                        |
-| **Admin Panel**     | Vollzugriff nur für Arien & Adrian                |
 
-> **Login**: Mit deiner Cloudary E-Mail + Passwort  
+> **Login**: Mit deinem Zugangspasswort
 > **Support**: `webmaster@cloudary.de`
 
 ## Architektur (Nextcloud ↔ Server)
