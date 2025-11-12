@@ -1,6 +1,6 @@
 /**
  * CLOUDARY Portal – Secure Access with User Management
- * Version: 1.3.0
+ * Version: 1.3.1 (Modern Design Update)
  * Author: webmaster@cloudary.de
  */
 
@@ -47,11 +47,13 @@ function showLogin() {
   els.loginSection.classList.remove("hidden");
   els.mainContent.classList.add("hidden");
   els.adminContent.classList.add("hidden");
+  els.logout.classList.add("hidden");
 }
 
 function showMain(user) {
   els.loginSection.classList.add("hidden");
   els.mainContent.classList.remove("hidden");
+  els.logout.classList.remove("hidden");
   updateGreeting(user.name);
   filterTiles(user.tiles);
   if (user.password === CONFIG.ADMIN_PASSWORD) {
@@ -138,7 +140,7 @@ function loadUserList() {
   els.userList.innerHTML = "";
   users.forEach((user, index) => {
     const li = document.createElement("li");
-    li.textContent = `${user.name} (${user.tiles.join(", ")})`;
+    li.innerHTML = `<strong>${user.name}</strong> <br> Kacheln: ${user.tiles.join(", ")}`;
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Löschen";
     deleteBtn.onclick = () => {
@@ -154,7 +156,4 @@ function loadUserList() {
 function showMessage(text, type) {
   els.message.textContent = text;
   els.message.className = `message ${type}`;
-  els.message.classList.remove("hidden");
-}
-
-console.info("%c✅ CLOUDARY Portal loaded with user management.", "color:#22c55e;font-weight:bold;");
+  els.message.class
