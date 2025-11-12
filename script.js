@@ -1,6 +1,6 @@
 /**
  * CLOUDARY Portal – Secure Access with User Management
- * Version: 1.3.1 (Modern Design Update)
+ * Version: 1.5.0 (Separate CSS, Tailwind, Ultra-Modern)
  * Author: webmaster@cloudary.de
  */
 
@@ -140,8 +140,10 @@ function loadUserList() {
   els.userList.innerHTML = "";
   users.forEach((user, index) => {
     const li = document.createElement("li");
-    li.innerHTML = `<strong>${user.name}</strong> <br> Kacheln: ${user.tiles.join(", ")}`;
+    li.className = "bg-gray-800 p-6 rounded-xl shadow-xl border border-dark-green hover:shadow-2xl transition-all duration-300";
+    li.innerHTML = `<div class="flex flex-col"><strong class="text-dark-green text-lg mb-2">${user.name}</strong><span class="text-sm text-gray-300">Kacheln: ${user.tiles.join(", ")}</span></div>`;
     const deleteBtn = document.createElement("button");
+    deleteBtn.className = "mt-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105";
     deleteBtn.textContent = "Löschen";
     deleteBtn.onclick = () => {
       users.splice(index, 1);
@@ -155,5 +157,11 @@ function loadUserList() {
 
 function showMessage(text, type) {
   els.message.textContent = text;
-  els.message.className = `message ${type}`;
-  els.message.class
+  els.message.className = `message p-5 rounded-xl text-center font-medium shadow-lg`;
+  if (type === "error") els.message.classList.add("bg-red-900/80", "text-red-300", "border", "border-red-600");
+  else if (type === "success") els.message.classList.add("bg-green-900/80", "text-green-300", "border", "border-green-600");
+  else if (type === "info") els.message.classList.add("bg-blue-900/80", "text-blue-300", "border", "border-blue-600");
+  els.message.classList.remove("hidden");
+}
+
+console.info("%c✅ CLOUDARY Portal loaded with separate CSS and Tailwind.", "color:#22c55e;font-weight:bold;");
