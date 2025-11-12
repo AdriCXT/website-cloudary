@@ -1,68 +1,81 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CLOUDARY Portal</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLOUDARY Portal</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+        header { background: #007bff; color: white; padding: 1rem; text-align: center; }
+        main { padding: 2rem; }
+        .tile { background: white; border: 1px solid #ddd; padding: 1rem; margin: 1rem 0; border-radius: 5px; }
+        .tile h3 { margin-top: 0; }
+        .hidden { display: none; }
+        #login-section { max-width: 400px; margin: 5rem auto; background: white; padding: 2rem; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .message { margin-top: 1rem; padding: 0.5rem; border-radius: 5px; }
+        .message.error { background: #f8d7da; color: #721c24; }
+        .message.success { background: #d4edda; color: #155724; }
+        .message.info { background: #d1ecf1; color: #0c5460; }
+        #admin-content { background: #fff; padding: 1rem; margin-top: 2rem; border: 1px solid #ddd; border-radius: 5px; }
+        #user-list li { display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid #eee; }
+        button { background: #007bff; color: white; border: none; padding: 0.5rem 1rem; border-radius: 3px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        footer { text-align: center; padding: 1rem; background: #007bff; color: white; }
+    </style>
 </head>
 <body>
-  <div class="background"></div>
-
-  <!-- Login Bereich -->
-  <section id="login-section" class="center">
-    <div class="login-card">
-      <div class="logo">
-        <div class="logo-icon">☁️</div>
-        <h1>CLOUDARY</h1>
-        <p class="tagline">Secure Access Portal</p>
-      </div>
-
-      <form id="login-form" autocomplete="off">
-        <label for="password">Passwort</label>
-        <input type="password" id="password" placeholder="Passwort von Admin erhalten" required />
-        <button type="submit">Login</button>
-        <p id="login-message" class="message hidden"></p>
-      </form>
-
-      <p class="support">
-        Probleme beim Login? <a href="mailto:webmaster@cloudary.de">webmaster@cloudary.de</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- Hauptinhalt -->
-  <main id="main-content" class="hidden">
     <header>
-      <h2>Willkommen im CLOUDARY Portal</h2>
-      <button id="logout-btn" class="logout">Logout</button>
+        <h2 id="greeting">Willkommen im CLOUDARY Portal</h2>
+        <button id="logout-btn" class="hidden">Abmelden</button>
     </header>
-
-    <div class="tiles">
-      <a href="https://cloud.cloudary.de" target="_blank" class="tile">
-        <div class="icon">☁️</div>
-        <h3>Cloud</h3>
-        <p>Deine Nextcloud – Dateien, Kalender & mehr.</p>
-      </a>
-
-      <a href="https://truenas.cloudary.de" target="_blank" class="tile">
-        <div class="icon">📊</div>
-        <h3>TRUENAS</h3>
-        <p>Dein internes Dashboard und Systemübersicht.</p>
-      </a>
-
-      <a href="mailto:webmaster@cloudary.de" class="tile">
-        <div class="icon">💬</div>
-        <h3>Support</h3>
-        <p>Kontakt zu unserem Support-Team.</p>
-      </a>
-    </div>
-
+    <main>
+        <section id="login-section">
+            <h2>Anmeldung</h2>
+            <form id="login-form">
+                <label for="password">Passwort:</label>
+                <input type="password" id="password" required />
+                <button type="submit">Anmelden</button>
+            </form>
+            <div id="login-message" class="message hidden"></div>
+        </section>
+        <section id="main-content" class="hidden">
+            <div class="tile" data-tile-id="cloud">
+                <h3>Cloud</h3>
+                <p>Zugriff auf Cloud-Dienste.</p>
+                <a href="https://cloud.cloudary.de" target="_blank">Öffnen</a>
+            </div>
+            <div class="tile" data-tile-id="truenas">
+                <h3>TRUENAS</h3>
+                <p>Zugriff auf NAS-Speicher.</p>
+                <a href="https://truenas.cloudary.de" target="_blank">Öffnen</a>
+            </div>
+            <div class="tile" data-tile-id="support">
+                <h3>Support</h3>
+                <p>Kontakt zum Support.</p>
+                <a href="mailto:webmaster@cloudary.de">Mail senden</a>
+            </div>
+        </section>
+        <div id="admin-content" class="hidden">
+            <h3>Admin Dashboard</h3>
+            <form id="user-form">
+                <label for="user-name">Name:</label>
+                <input type="text" id="user-name" required />
+                <label for="user-password">Passwort:</label>
+                <input type="password" id="user-password" required />
+                <fieldset>
+                    <legend>Sichtbare Kacheln:</legend>
+                    <label><input type="checkbox" value="cloud" /> Cloud</label>
+                    <label><input type="checkbox" value="truenas" /> TRUENAS</label>
+                    <label><input type="checkbox" value="support" /> Support</label>
+                </fieldset>
+                <button type="submit">Benutzer erstellen</button>
+            </form>
+            <ul id="user-list"></ul>
+        </div>
+    </main>
     <footer>
-      <p>© <span id="year"></span> CLOUDARY · 2025 · All rights reserved.</p>
+        <p>&copy; <span id="year"></span> CLOUDARY. Alle Rechte vorbehalten. <a href="mailto:webmaster@cloudary.de">Support</a></p>
     </footer>
-  </main>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

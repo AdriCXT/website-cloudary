@@ -72,7 +72,7 @@ function updateGreeting(name) {
 
 function filterTiles(allowedTiles) {
   els.tiles.forEach(tile => {
-    const tileId = tile.getAttribute("data-tile-id") || tile.querySelector("h3").textContent.toLowerCase();
+    const tileId = tile.getAttribute("data-tile-id");
     if (allowedTiles.includes(tileId)) {
       tile.style.display = "block";
     } else {
