@@ -1,44 +1,31 @@
 /**
- * CLOUDARY Portal – Secure Access with User Management
- * Version: 1.5.0 (Separate CSS, Tailwind, Ultra-Modern)
+ * CLOUDARY Portal – Secure Access
+ * Version: 1.2.0
  * Author: webmaster@cloudary.de
  */
 
 const CONFIG = {
-  ADMIN_PASSWORD: "Uyeg0422!", // 🔐 Admin-Passwort
-  STORAGE_KEY_AUTH: "cloudary-auth",
-  STORAGE_KEY_USERS: "cloudary-users",
-  STORAGE_KEY_CURRENT_USER: "cloudary-current-user",
+  PASSWORD: "Uyeg0422!", // 🔐 Passwort anpassen
+  STORAGE_KEY: "cloudary-auth",
   LOGIN_DELAY: 450
 };
 
 const els = {
   loginSection: document.getElementById("login-section"),
   mainContent: document.getElementById("main-content"),
-  adminContent: document.getElementById("admin-content"),
   form: document.getElementById("login-form"),
   password: document.getElementById("password"),
   message: document.getElementById("login-message"),
   logout: document.getElementById("logout-btn"),
-  year: document.getElementById("year"),
-  greeting: document.getElementById("greeting"),
-  userForm: document.getElementById("user-form"),
-  userName: document.getElementById("user-name"),
-  userPassword: document.getElementById("user-password"),
-  userList: document.getElementById("user-list"),
-  tiles: document.querySelectorAll(".tile")
+  year: document.getElementById("year")
 };
 
 // Jahr anzeigen
 if (els.year) els.year.textContent = new Date().getFullYear();
 
-// Benutzer laden oder initialisieren
-let users = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY_USERS)) || [];
-
 // Session prüfen
-const currentUser = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY_CURRENT_USER));
-if (localStorage.getItem(CONFIG.STORAGE_KEY_AUTH) === "true" && currentUser) {
-  showMain(currentUser);
+if (localStorage.getItem(CONFIG.STORAGE_KEY) === "true") {
+  showMain();
 } else {
   showLogin();
 }
@@ -46,41 +33,11 @@ if (localStorage.getItem(CONFIG.STORAGE_KEY_AUTH) === "true" && currentUser) {
 function showLogin() {
   els.loginSection.classList.remove("hidden");
   els.mainContent.classList.add("hidden");
-  els.adminContent.classList.add("hidden");
-  els.logout.classList.add("hidden");
 }
 
-function showMain(user) {
+function showMain() {
   els.loginSection.classList.add("hidden");
   els.mainContent.classList.remove("hidden");
-  els.logout.classList.remove("hidden");
-  updateGreeting(user.name);
-  filterTiles(user.tiles);
-  if (user.password === CONFIG.ADMIN_PASSWORD) {
-    els.adminContent.classList.remove("hidden");
-    loadUserList();
-  } else {
-    els.adminContent.classList.add("hidden");
-  }
-}
-
-function updateGreeting(name) {
-  const hour = new Date().getHours();
-  let timeGreeting = "Guten Abend";
-  if (hour < 12) timeGreeting = "Guten Morgen";
-  else if (hour < 18) timeGreeting = "Guten Mittag";
-  els.greeting.textContent = `${timeGreeting} ${name}`;
-}
-
-function filterTiles(allowedTiles) {
-  els.tiles.forEach(tile => {
-    const tileId = tile.getAttribute("data-tile-id");
-    if (allowedTiles.includes(tileId)) {
-      tile.style.display = "block";
-    } else {
-      tile.style.display = "none";
-    }
-  });
 }
 
 els.form.addEventListener("submit", (e) => {
@@ -96,14 +53,12 @@ els.form.addEventListener("submit", (e) => {
   els.password.disabled = true;
 
   setTimeout(() => {
-    const user = users.find(u => u.password === input) || (input === CONFIG.ADMIN_PASSWORD ? { name: "Admin", password: CONFIG.ADMIN_PASSWORD, tiles: ["cloud", "truenas", "support"] } : null);
-    if (user) {
+    if (input === CONFIG.PASSWORD) {
       showMessage("Erfolgreich angemeldet.", "success");
-      localStorage.setItem(CONFIG.STORAGE_KEY_AUTH, "true");
-      localStorage.setItem(CONFIG.STORAGE_KEY_CURRENT_USER, JSON.stringify(user));
-      setTimeout(() => showMain(user), 700);
+      localStorage.setItem(CONFIG.STORAGE_KEY, "true");
+      setTimeout(showMain, 700);
     } else {
-      showMessage("Falsches Passwort. Bei Problemen siehe Mail unten.", "error");
+      showMessage("Falsches Passwort. bei Problemen siehe Mail unten", "error");
       els.password.value = "";
     }
     els.password.disabled = false;
@@ -111,57 +66,14 @@ els.form.addEventListener("submit", (e) => {
 });
 
 els.logout.addEventListener("click", () => {
-  localStorage.removeItem(CONFIG.STORAGE_KEY_AUTH);
-  localStorage.removeItem(CONFIG.STORAGE_KEY_CURRENT_USER);
+  localStorage.removeItem(CONFIG.STORAGE_KEY);
   showLogin();
 });
 
-// Admin: Benutzer erstellen
-els.userForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const name = els.userName.value.trim();
-  const password = els.userPassword.value.trim();
-  const tiles = Array.from(document.querySelectorAll("#user-form input[type='checkbox']:checked")).map(cb => cb.value);
-  if (!name || !password || tiles.length === 0) {
-    alert("Alle Felder ausfüllen und mindestens eine Kachel auswählen.");
-    return;
-  }
-  if (users.find(u => u.password === password)) {
-    alert("Passwort bereits vergeben.");
-    return;
-  }
-  users.push({ name, password, tiles });
-  localStorage.setItem(CONFIG.STORAGE_KEY_USERS, JSON.stringify(users));
-  loadUserList();
-  els.userForm.reset();
-});
-
-function loadUserList() {
-  els.userList.innerHTML = "";
-  users.forEach((user, index) => {
-    const li = document.createElement("li");
-    li.className = "bg-gray-800 p-6 rounded-xl shadow-xl border border-dark-green hover:shadow-2xl transition-all duration-300";
-    li.innerHTML = `<div class="flex flex-col"><strong class="text-dark-green text-lg mb-2">${user.name}</strong><span class="text-sm text-gray-300">Kacheln: ${user.tiles.join(", ")}</span></div>`;
-    const deleteBtn = document.createElement("button");
-    deleteBtn.className = "mt-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105";
-    deleteBtn.textContent = "Löschen";
-    deleteBtn.onclick = () => {
-      users.splice(index, 1);
-      localStorage.setItem(CONFIG.STORAGE_KEY_USERS, JSON.stringify(users));
-      loadUserList();
-    };
-    li.appendChild(deleteBtn);
-    els.userList.appendChild(li);
-  });
-}
-
 function showMessage(text, type) {
   els.message.textContent = text;
-  els.message.className = `message p-5 rounded-xl text-center font-medium shadow-lg`;
-  if (type === "error") els.message.classList.add("bg-red-900/80", "text-red-300", "border", "border-red-600");
-  else if (type === "success") els.message.classList.add("bg-green-900/80", "text-green-300", "border", "border-green-600");
-  else if (type === "info") els.message.classList.add("bg-blue-900/80", "text-blue-300", "border", "border-blue-600");
+  els.message.className = `message ${type}`;
   els.message.classList.remove("hidden");
 }
 
-console.info("%c✅ CLOUDARY Portal loaded with separate CSS and Tailwind.", "color:#22c55e;font-weight:bold;");
+console.info("%c✅ CLOUDARY Portal loaded.", "color:#22c55e;font-weight:bold;");

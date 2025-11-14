@@ -1,76 +1,68 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CLOUDARY Portal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-green': '#2d5a27',
-                        'dark-green-hover': '#3a6b3a',
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLOUDARY Portal</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="bg-black text-white min-h-screen font-sans">
-    <header class="bg-gradient-to-r from-black via-gray-900 to-black p-6 flex justify-between items-center shadow-2xl border-b border-dark-green backdrop-blur-md">
-        <h2 id="greeting" class="text-2xl font-light tracking-wide">Willkommen im CLOUDARY Portal</h2>
-        <button id="logout-btn" class="hidden bg-dark-green hover:bg-dark-green-hover text-white px-6 py-3 rounded-2xl shadow-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">Abmelden</button>
+<body>
+  <div class="background"></div>
+
+  <!-- Login Bereich -->
+  <section id="login-section" class="center">
+    <div class="login-card">
+      <div class="logo">
+        <div class="logo-icon">☁️</div>
+        <h1>CLOUDARY</h1>
+        <p class="tagline">Secure Access Portal</p>
+      </div>
+
+      <form id="login-form" autocomplete="off">
+        <label for="password">Passwort</label>
+        <input type="password" id="password" placeholder="Passwort von Admin erhalten" required />
+        <button type="submit">Login</button>
+        <p id="login-message" class="message hidden"></p>
+      </form>
+
+      <p class="support">
+        Probleme beim Login? <a href="mailto:webmaster@cloudary.de">webmaster@cloudary.de</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Hauptinhalt -->
+  <main id="main-content" class="hidden">
+    <header>
+      <h2>Willkommen im CLOUDARY Portal- 3</h2>
+      <button id="logout-btn" class="logout">Logout</button>
     </header>
-    <main class="max-w-7xl mx-auto p-6">
-        <section id="login-section" class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-10 rounded-2xl shadow-2xl border border-dark-green max-w-lg mx-auto mt-20 backdrop-blur-sm">
-            <h2 class="text-center text-dark-green text-3xl mb-8 font-semibold">Anmeldung</h2>
-            <form id="login-form" class="flex flex-col gap-6">
-                <input type="password" id="password" placeholder="Passwort eingeben" class="p-5 bg-gray-800 border border-dark-green rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-dark-green focus:bg-gray-700 transition-all duration-300" required />
-                <button type="submit" class="bg-dark-green hover:bg-dark-green-hover text-white py-5 rounded-xl shadow-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl font-semibold">Anmelden</button>
-            </form>
-            <div id="login-message" class="message hidden mt-6 p-5 rounded-xl text-center font-medium shadow-lg"></div>
-        </section>
-        <section id="main-content" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            <div class="tile bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-8 rounded-2xl shadow-xl border border-dark-green hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-tile-id="cloud">
-                <h3 class="text-dark-green text-2xl mb-4 font-semibold">Cloud</h3>
-                <p class="mb-6 text-gray-300">Zugriff auf Cloud-Dienste.</p>
-                <a href="https://cloud.cloudary.de" target="_blank" class="inline-block bg-dark-green hover:bg-dark-green-hover text-white px-6 py-3 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105">Öffnen</a>
-            </div>
-            <div class="tile bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-8 rounded-2xl shadow-xl border border-dark-green hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-tile-id="truenas">
-                <h3 class="text-dark-green text-2xl mb-4 font-semibold">TRUENAS</h3>
-                <p class="mb-6 text-gray-300">Zugriff auf NAS-Speicher.</p>
-                <a href="https://truenas.cloudary.de" target="_blank" class="inline-block bg-dark-green hover:bg-dark-green-hover text-white px-6 py-3 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105">Öffnen</a>
-            </div>
-            <div class="tile bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-8 rounded-2xl shadow-xl border border-dark-green hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-tile-id="support">
-                <h3 class="text-dark-green text-2xl mb-4 font-semibold">Support</h3>
-                <p class="mb-6 text-gray-300">Kontakt zum Support.</p>
-                <a href="mailto:webmaster@cloudary.de" class="inline-block bg-dark-green hover:bg-dark-green-hover text-white px-6 py-3 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105">Mail senden</a>
-            </div>
-        </section>
-        <div id="admin-content" class="hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-10 rounded-2xl shadow-2xl border border-dark-green mt-12 backdrop-blur-sm">
-            <h3 class="text-dark-green text-3xl mb-8 font-semibold">Admin Dashboard</h3>
-            <form id="user-form" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <input type="text" id="user-name" placeholder="Name" class="p-5 bg-gray-800 border border-dark-green rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-dark-green transition-all duration-300" required />
-                <input type="password" id="user-password" placeholder="Passwort" class="p-5 bg-gray-800 border border-dark-green rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-dark-green transition-all duration-300" required />
-                <fieldset class="md:col-span-2 border border-dark-green rounded-xl p-6 bg-gray-800">
-                    <legend class="text-dark-green font-semibold text-lg">Sichtbare Kacheln:</legend>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                        <label class="flex items-center text-gray-300"><input type="checkbox" value="cloud" class="mr-3 accent-dark-green" /> Cloud</label>
-                        <label class="flex items-center text-gray-300"><input type="checkbox" value="truenas" class="mr-3 accent-dark-green" /> TRUENAS</label>
-                        <label class="flex items-center text-gray-300"><input type="checkbox" value="support" class="mr-3 accent-dark-green" /> Support</label>
-                    </div>
-                </fieldset>
-                <button type="submit" class="md:col-span-2 bg-dark-green hover:bg-dark-green-hover text-white py-5 rounded-xl shadow-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl font-semibold">Benutzer erstellen</button>
-            </form>
-            <ul id="user-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></ul>
-        </div>
-    </main>
-    <footer class="bg-gradient-to-r from-black via-gray-900 to-black text-center p-8 border-t border-dark-green backdrop-blur-md mt-12">
-        <p class="text-gray-400">&copy; <span id="year"></span> CLOUDARY. Alle Rechte vorbehalten. <a href="mailto:webmaster@cloudary.de" class="text-dark-green hover:text-dark-green-hover transition-colors font-semibold">Support</a></p>
+
+    <div class="tiles">
+      <a href="https://cloud.cloudary.de" target="_blank" class="tile">
+        <div class="icon">☁️</div>
+        <h3>Cloud</h3>
+        <p>Deine Nextcloud – Dateien, Kalender & mehr.</p>
+      </a>
+
+      <a href="https://truenas.cloudary.de" target="_blank" class="tile">
+        <div class="icon">📊</div>
+        <h3>TRUENAS</h3>
+        <p>Dein internes Dashboard und Systemübersicht.</p>
+      </a>
+
+      <a href="mailto:webmaster@cloudary.de" class="tile">
+        <div class="icon">💬</div>
+        <h3>Support</h3>
+        <p>Kontakt zu unserem Support-Team.</p>
+      </a>
+    </div>
+
+    <footer>
+      <p>© <span id="year"></span> CLOUDARY · 2025 · All rights reserved.</p>
     </footer>
-    <script src="script.js"></script>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
