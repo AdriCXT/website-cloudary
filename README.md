@@ -9,7 +9,6 @@
   <img src="https://img.shields.io/github/last-commit/adricxt/website-cloudary?style=for-the-badge&color=0082C9&logo=git&logoColor=white" alt="Zuletzt bearbeitet" />
 </div>
 
-## site.cloudary.de
 
 ## Services im Intranet
 
@@ -23,6 +22,9 @@
 > **Login**: Mit deinem Zugangspasswort         
 
 > **Support**: `webmaster@cloudary.de`
+
+> ## site.cloudary.de
+ 
 
 ## Architektur (Nextcloud ↔ Server)
 
