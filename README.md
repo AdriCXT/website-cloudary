@@ -23,7 +23,7 @@
 
 > **Support**: `webmaster@cloudary.de`
 
-Besuchen Sie die [Link zur Website](https://site.cloudary.de).
+Besuchen Sie die [site.cloudary.de](https://site.cloudary.de).
  
 
 ## Architektur (Nextcloud ↔ Server)
